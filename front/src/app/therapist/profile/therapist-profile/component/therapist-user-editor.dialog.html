@@ -1,0 +1,67 @@
+<p-dialog header="Change Password"
+          [(visible)]="showDialog"
+          [responsive]="true"
+          showEffect="fade"
+          [focusOnShow]="false"
+          [modal]="true"
+          (onHide)="onHide()"
+          [width]="600">
+    <ng-container [formGroup]="editorForm">
+        <div class="ui-g-12 ui-md-12 ui-lg-10">
+
+            <!--<div class="form-group ui-md-12 ui-lg-6">-->
+                <!--<label for="username">Username :</label>-->
+                <!--<input type="username"-->
+                       <!--class="form-control avoid-clicks"-->
+                       <!--formControlName="name"-->
+                       <!--readonly-->
+                       <!--id="username"/><br>-->
+                <!--<div class="error" style="color: #f498b1" *ngIf="editorForm.get('name').invalid &&-->
+                       <!--(editorForm.get('name').dirty || editorForm.get('name').touched)">-->
+                    <!--<div *ngIf="editorForm.get('name').errors['required']"><i>This field is required</i></div>-->
+                    <!--<div *ngIf="editorForm.get('name').errors['uniqueUsername']"><i>Username already exist</i></div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <div class="form-group ui-md-12 ui-lg-6">
+                <label for="password">New Password :</label>
+                <input type="password"
+                       class="form-control"
+                       formControlName="password"
+                       id="password"/><br>
+                <div class="error" style="color: #f498b1" *ngIf="editorForm.get('password').invalid &&
+                        (editorForm.get('password').dirty || editorForm.get('password').touched)">
+                    <div *ngIf="editorForm.get('password').errors['required']"><i>This field is required</i></div>
+                </div>
+            </div>
+
+            <div class="form-group ui-md-12 ui-lg-6">
+                <label for="confirmPassword">Confirm Password :</label>
+                <input type="password"
+                       class="form-control"
+                       formControlName="confirmPassword"
+                       id="confirmPassword"/><br>
+                <div class="error" style="color: #f498b1" *ngIf="editorForm.get('confirmPassword').invalid &&
+                         (editorForm.get('confirmPassword').dirty || editorForm.get('confirmPassword').touched)">
+                    <div *ngIf="editorForm.get('confirmPassword').errors['required']"><i>This field is required</i></div>
+                    <div *ngIf="editorForm.get('confirmPassword').errors &&
+                        editorForm.get('confirmPassword').errors">
+                        <i>Password not match</i>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </ng-container>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button" pButton icon="fa fa-lock"
+                    (click)="update()"
+                    [disabled]="!editorForm.valid && !editorForm.dirty && !editorForm.touched"
+                    [label]="'Update Password'"></button>
+            <!--<button type="button" pButton icon="fa fa-close" (click)="deleteItem()"-->
+            <!--[disabled]="!isEdit"-->
+            <!--label="Delete"></button>-->
+        </div>
+    </p-footer>
+</p-dialog>

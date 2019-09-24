@@ -1,0 +1,308 @@
+<div class="ui-g ui-fluid">
+    <div class="ui-g">
+
+
+        <div class="card ui-g-12" style="padding: 30px">
+            <span class="colorbox-name" style="font-size: 2em">Child Profile</span>
+            <div class="ui-g-12 ui-lg-12 " [formGroup]="childForm">
+                <div class="ui-g colorbox colorbox-1">
+
+                    <div class="ui-g-12">
+                        <div class="ui-g-2">
+                            <label>Name </label>
+                        </div>
+                        <div class="ui-g-10">
+                                            <span>
+                                                :   {{(child$ |async)?.name}}
+                                            </span>
+                        </div>
+                    </div>
+
+                    <div class="ui-g-12">
+                        <div class="ui-g-2">
+                            <label>Age </label>
+                        </div>
+                        <div class="ui-g-10">
+                                            <span>
+                                                :   {{(child$ |async)?.realAge}}  months
+                                            </span>
+                        </div>
+                    </div>
+
+                    <div class="ui-g-12">
+                        <div class="ui-g-2">
+                            <label>Gender </label>
+                        </div>
+                        <div class="ui-g-10">
+                                            <span>
+                                                 :  {{(child$ |async)?.gender}}
+                                            </span>
+                        </div>
+                    </div>
+
+                    <div class="ui-g-12">
+                        <div class="ui-g-2">
+                            <label>Concern </label>
+                        </div>
+                        <div class="ui-g-10">
+                                         <span>
+                                             :  {{(child$ |async)?.concernType}}
+                                         </span>
+                        </div>
+                    </div>
+
+                    <div class="ui-g-12">
+                        <div class="ui-g-2">
+                            <label>Remark </label>
+                        </div>
+                        <div class="ui-g-10">
+                                       <span>
+                                            :   {{(child$ |async)?.remark}}
+                                       </span>
+                        </div>
+                    </div>
+
+                    <div class="ui-g-12">
+                        <div class="ui-g-2">
+                            <label>First Evaluation </label>
+                        </div>
+                        <div class="ui-g-10">
+                                       <span>
+                                            :   {{(calibration$ |async)?.createdDate}}
+                                       </span>
+                        </div>
+                    </div>
+
+                    <div class="ui-g-12">
+                        <div class="ui-g-2">
+                            <label>Date Enrolled </label>
+                        </div>
+                        <div class="ui-g-10">
+                                       <span>
+                                            :   {{(enrollment$ |async)?.createdDate }}
+                                       </span>
+                        </div>
+                    </div>
+
+                    <div class="ui-g-12">
+                        <div class="ui-g-2">
+                            <label>Course Subscribed </label>
+                        </div>
+                        <div class="ui-g-10">
+                                       <span>
+                                            :   {{(enrollment$ |async)?.course1?.name}}
+                                       </span>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="card ui-g-12" style="padding: 30px">
+            <span class="colorbox-name" style="font-size: 2em">Latest Evaluation</span>
+            <div class="ui-g-12 ui-lg-12 ">
+                <div class="ui-g-12 ui-lg-5 ui-lg-5">
+                    <div class="ui-g colorbox colorbox-1">
+                        <span class="colorbox-name" style="font-size: 1.5em">Evaluation Summary</span>
+
+                        <div class="ui-g-12">
+                            <div class="ui-g-3">
+                                <label>Cognitive Age </label>
+                            </div>
+                            <div class="ui-g-9">
+                                <span>: {{(evaluation$ |async)?.schema?.description}}</span>
+                            </div>
+                        </div>
+
+                        <div class="ui-g-12">
+                            <div class="ui-g-3">
+                                <label>Current Test Date </label>
+                            </div>
+                            <div class="ui-g-9" *ngIf="(child$ |async)?.evaluation?.totalScore !=0">
+                                <span>: {{(evaluation$ |async)?.modifiedDate}}</span>
+                            </div>
+                            <div class="ui-g-9" *ngIf="(child$ |async)?.evaluation?.totalScore ==0">
+                                <span>: </span>
+                            </div>
+                        </div>
+
+                        <div class="ui-g-12">
+                            <div class="ui-g-3">
+                                <label>Current Test Level</label>
+                            </div>
+                            <div class="ui-g-9">
+                                <span>: {{(evaluation$ |async)?.schema?.description}}</span>
+                            </div>
+                        </div>
+
+                        <div class="ui-g-12">
+                            <div class="ui-g-3">
+                                <label>Current Result</label>
+                            </div>
+                            <div class="ui-g-5"
+                                 *ngIf="(child$ |async)?.evaluation?.totalScore !=0"
+                                 (click)="evaluationResult()"
+                                 title="Show result"
+                                 onmouseover="" style="cursor: pointer;">
+                                <span class="txt">: {{(child$ |async)?.evaluation?.totalScore}}
+                                    /{{(child$ |async)?.evaluation?.schema?.fullScore}}</span>
+                            </div>
+                            <div class="ui-g-9" *ngIf="(child$ |async)?.evaluation?.totalScore ==0">
+                                <span>: </span>
+                            </div>
+                        </div>
+
+                        <div class="ui-g-12">
+                            <div class="ui-g-3">
+                                <label>Current Status</label>
+                            </div>
+                            <div class="ui-g-9">
+                                <span>
+                                    :   {{(child$ |async)?.evaluation?.evaluationStatus?.status}}
+                                </span>
+                                <ng-template let-spans pTemplate="emptymessage">
+                                            <span>
+                                                Not evalute.
+                                            </span>
+                                </ng-template>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card ui-g-12" style="padding: 30px">
+            <span class="colorbox-name" style="font-size: 2em">First Evaluation Result</span>
+            <div class="ui-g-12 ui-lg-12 ">
+                <div class="ui-g-12 ui-lg-4 ui-lg-4">
+                    <div class="ui-g colorbox colorbox-1">
+                        <div class="ui-g-3"><i class="material-icons"></i></div>
+                        <div class="ui-g-12">
+                            <span class="colorbox-name" style="font-size: 1.5em">ISMVDII Breakdown By Section</span>
+
+                            <div class="ui-g"
+                                 *ngFor="let sectionResponse of (child$| async)?.calibration?.sectionResponses;">
+                                <div
+                                    class="ui-g-8 ui-sm-8">{{sectionResponse.evaluationSection?.description}} </div>
+                                <div class="ui-g-4 ui-sm-4"><b> {{sectionResponse.sectionScore}}
+                                    /{{sectionResponse.fullScore}}</b></div>
+                            </div>
+
+                            <br><span class="colorbox-name" style="font-size: 1.5em">Total Score</span>
+                            <div class="ui-g">
+                                <div class="ui-g-12 ui-sm-8"
+                                     style="font-size: 1em">{{(child$ |async)?.calibration?.totalScore}}
+                                    /{{(child$ |async)?.calibration?.schema?.fullScore}}</div>
+                                <div class="ui-g-12 ui-sm-12">
+                                    <b>{{(child$ |async)?.calibration?.evaluationStatus?.status}} </b></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ui-g-12 ui-lg-8 ui-lg-8">
+                    <!--put spider chart-->
+                    <!--<div class="card">-->
+                    <!--<p-chart #chart type="radar" [data]="data" [options]="options"></p-chart>-->
+                    <!--</div>-->
+
+                    <div class="card">
+                        <p-chart type="line" [data]="dataLine" [options]="optionsLine"></p-chart>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card ui-g-12" style="padding: 30px">
+            <span class="colorbox-name" style="font-size: 2em">Therapist Comment</span>
+            <div class="ui-g ">
+
+                <div class="ui-g-12">
+                    <div class="ui-toolbar-group-right">
+                        <button pButton
+                                type="button"
+                                [label]="'Comment'"
+                                icon="fa fa-plus"
+                                (click)="createComment()">
+                        </button>
+                    </div>
+                </div>
+
+                <div class="ui-g-12">
+                    <p-table #dt
+                             [columns]="cols"
+                             [value]="comments$ | async"
+                             [selectionMode]="'single'"
+                             [lazy]="true"
+                             [rows]="10"
+                             [paginator]="true"
+                             [responsive]="true"
+                             autoLayout="true"
+                             (onLazyLoad)="loadData($event)"
+                             [totalRecords]="totalSize$ |async">
+
+                        <ng-template pTemplate="header" let-columns>
+                            <tr>
+                                <th style="width: 10%">No.</th>
+                                <th style="width: 10%">TimeStamp</th>
+                                <th style="width: 40%">Comment</th>
+                                <th style="width: 20%">Action</th>
+                            </tr>
+                        </ng-template>
+
+                        <ng-template let-i="rowIndex" pTemplate="body" let-rowData>
+                            <tr>
+                                <td align="center">
+                                    {{i + 1}}
+                                </td>
+                                <td>
+                                    {{rowData?.createdDate | date}}
+                                </td>
+                                <td>
+                                    {{rowData?.comment}}
+                                </td>
+                                <td>
+                                    <div class="ui-g-12">
+                                        <div class="ui-g-12 ui-md-6">
+                                            <button pButton type="button" label="Update" class="ui-button-rounded ui-button-info" (click)="updateComment(rowData)"></button>
+                                        </div>
+
+                                        <div class="ui-g-12 ui-md-6">
+                                            <button pButton type="button" label="Delete" class="ui-button-rounded ui-button-danger" (click)="deleteComment(rowData)"></button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template let-columns pTemplate="emptymessage">
+                            <tr>
+                                <td [attr.colspan]="4" align="center">
+                                    Fail to retrieve data. Comment is empty.
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<dex-comment-editor-dialog
+    [comment]="selectedComment"
+    [showDialog]="displayDialog"
+    (onSave)="onSaveComment($event)"
+    (onSaveAndNew)="onSaveComment($event)"
+    (onUpdate)="onUpdateComment($event)"
+    (onClose)="hideDialog()">
+</dex-comment-editor-dialog>
+
+

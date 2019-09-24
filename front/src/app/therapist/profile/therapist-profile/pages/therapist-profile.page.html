@@ -1,0 +1,246 @@
+<!--{{therapist$|async|json}}-->
+
+<div class="ui-g-12">
+    <div class="ui-g-12">
+        <form>
+            <div class="ui-g-12 ui-md-12 ui-lg-10 centerized">
+                <div class="ui-g-12 ui-md-12 ui-lg-10 centerized" align="center">
+                    <h2 style="margin-bottom: 30px"><i class="fa fa-user"
+                                                       aria-hidden="true"
+                                                       style="padding-right: 20px;">
+                    </i>USER INFO</h2>
+                </div>
+                <div class="ui-g-12 ui-md-12 ui-lg-10 centerized"
+                     style="border-top: 1px solid;
+                            border-top-color: rgba(0,0,0,0.25);
+                            padding-top: 30px" [formGroup]="userForm">
+                    <div class="form-group ui-md-12 ui-lg-6">
+                        <label for="username">Username :</label>
+                        <input type="username"
+                               class="form-control avoid-clicks"
+                               formControlName="name"
+                               style="border: none"
+                               readonly
+                               id="username">
+                    </div>
+
+                    <div class="form-group ui-md-12 ui-lg-6">
+                        <label for="password">Password :</label>
+                        <input type="password"
+                               class="form-control avoid-clicks"
+                               formControlName="password"
+                               readonly
+                               id="password">
+                    </div>
+
+                    <div class="form-group ui-md-12 ui-lg-6"
+                         style="margin-top: 10px; margin-bottom: 10px">
+                        <p-button
+                            style="position: center;"
+                            label="Change Password"
+                            icon="fa fa-lock"
+                            (onClick)="doShowTherapistUserDialog()"
+                            type="button">
+                        </p-button>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="ui-g-12 ui-md-12 ui-lg-10 centerized">
+                <div class="ui-g-12 ui-md-12 ui-lg-10 centerized" align="center"
+                     style="border-top: 1px solid;
+                            border-top-color: rgba(0,0,0,0.25);
+                            padding-top: 30px">
+                    <h2 style="margin-bottom: 30px"><i class="fa fa-user"
+                                                       aria-hidden="true"
+                                                       style="padding-right: 20px;">
+                    </i>PERSONAL INFO</h2>
+                </div>
+                <div class="ui-g-12 ui-md-12 ui-lg-10 centerized"
+                     style="border-top: 1px solid;
+                            border-top-color: rgba(0,0,0,0.25);
+                            padding-top: 30px" [formGroup]="therapistForm">
+                    <div class="form-group ui-g-12 ui-md-12 ui-lg-6">
+                        <label for="name">Name :</label>
+                        <input type="name"
+                               class="form-control"
+                               formControlName="name"
+                               id="name">
+                    </div>
+                    <div class="form-group ui-g-12 ui-md-12 ui-lg-6">
+                        <label for="code"> Therapist Code :</label>
+                        <input type="text"
+                               class="form-control avoid-clicks"
+                               style="border: none"
+                               formControlName="code"
+                               readonly
+                               id="code">
+                    </div>
+                    <div class="form-group ui-g-12 ui-md-12 ui-lg-6">
+                        <label for="identity">Identity.No :</label>
+                        <input type="text"
+                               class="form-control"
+                               formControlName="identityNo"
+                               id="identity">
+                    </div>
+                    <div class="form-group ui-g-12 ui-md-12 ui-lg-6">
+                        <label for="email">Email :</label>
+                        <input type="email"
+                               class="form-control"
+                               formControlName="email"
+                               ngModel pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                               id="email">
+                    </div>
+                    <div class="form-group ui-g-12 ui-md-12 ui-lg-6">
+                        <label for=hospital>Hospital :</label>
+                        <input type="text"
+                               class="form-control"
+                               formControlName="hospital"
+                               id="hospital">
+                    </div>
+                    <div class="form-group ui-g-12 ui-md-12 ui-lg-6">
+                        <label for="profession">Profession :</label>
+                        <input type="text"
+                               class="form-control"
+                               formControlName="profession"
+                               id="profession">
+                    </div>
+                    <div class="form-group ui-g-12 ui-md-12 ui-lg-12">
+                        <label for="address1">Address :</label>
+                        <input type="text"
+                               class="form-control"
+                               formControlName="address1"
+                               id="address1">
+                    </div>
+                    <div class="form-group ui-g-12 ui-md-12 ui-lg-12">
+                        <label for="address2"></label>
+                        <input type="text"
+                               class="form-control"
+                               formControlName="address2"
+                               id="address2">
+                    </div>
+                    <div class="form-group ui-g-12 ui-md-12 ui-lg-12">
+                        <label for="address3"></label>
+                        <input type="text"
+                               class="form-control"
+                               formControlName="address3"
+                               id="address3">
+                    </div>
+                    <div class="form-group ui-g-12 ui-md-12 ui-lg-6">
+                        <label for="postcode">Postcode :</label>
+                        <input type="text"
+                               class="form-control"
+                               formControlName="postcode"
+                               id="postcode">
+                    </div>
+                    <div class="form-group ui-g-12 ui-md-12 ui-lg-6">
+                        <label for="mobile">Mobile No :</label>
+                        <input type="text"
+                               class="form-control"
+                               formControlName="mobile"
+                               id="mobile">
+                    </div>
+                    <div class="form-group ui-g-12 ui-md-12 ui-lg-12"
+                         style="margin-top: 10px; margin-bottom: 10px"
+                         align="center">
+                        <p-button
+                            [disabled]="!isFormValid()"
+                            style="position: center;"
+                            label="Save"
+                            icon="fa fa-save"
+                            (onClick)="updateProfile()"
+                            type="button">
+                        </p-button>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="ui-g-12">
+            <div class="ui-g-12 ui-md-12 ui-lg-10 centerized">
+                <div class="ui-g-12 ui-md-12 ui-lg-10 centerized" align="center"
+                     style="border-top: 1px solid;
+                            border-top-color: rgba(0,0,0,0.25);
+                            padding-top: 30px">
+                    <h2 style="margin-bottom: 30px"><i class="fa fa-user"
+                                                       aria-hidden="true"
+                                                       style="padding-right: 20px;">
+                    </i>DOCUMENT INFO</h2>
+                </div>
+                <div class="ui-g-12 ui-md-12 ui-lg-10 centerized"
+                     style="border-top: 1px solid;
+                            border-top-color: rgba(0,0,0,0.25);
+                            padding-top: 30px">
+                    <h2>Upload Required Documents</h2>
+                    <p-growl [value]="msgs"></p-growl>
+                    <p-fileUpload #fileUpload (onUpload)="onSuccessUpload()"
+                                  (uploadHandler)="onUpload($event)"
+                                  [customUpload]="true"
+                                  [multiple]="false"
+                                  maxFileSize="5000000"
+                                  name="files">
+                    </p-fileUpload>
+                </div>
+                <div class="ui-g-12 ui-md-12 ui-lg-10 centerized">
+
+                    <h2>Documents List</h2>
+                    <p-table #dt
+                             [columns]="cols"
+                             [selectionMode]="'single'"
+                             [value]="supportingDocuments$ | async">
+                        <ng-template let-columns pTemplate="header">
+                            <tr>
+                                <th style="width: 80%">FileName</th>
+                                <th style="width: 20%">Action</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template let-rowData pTemplate="body">
+                            <tr [pSelectableRow]="rowData">
+                                <td>
+                                    {{rowData?.fileName}}
+                                </td>
+                                <td align="center">
+                                    <div class="ui-button-toolbar-mr">
+                                        <button
+                                            (click)="doViewAttachment(rowData)"
+                                            class="ui-button-success"
+                                            icon="fa fa-external-link"
+                                            pButton
+                                            pTooltip="View"
+                                            type="button">
+                                        </button>
+                                        <button
+                                            (click)="doDeleteAttachment(rowData)"
+                                            class="ui-button-danger"
+                                            icon="fa fa-trash"
+                                            pButton
+                                            pTooltip="Remove"
+                                            type="button">
+                                        </button>
+                                    </div>
+
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+    </div>
+
+</div>
+
+<dex-attachment-viewer-dialog
+    (onClose)="hideAttachmentDialog()"
+    [attachments]="selectedSupportingDocuments"
+    [showDialog]="showAttachmentDialog">
+
+</dex-attachment-viewer-dialog>
+
+<dex-therapist-user-editor-dialog
+    [user]="selectedUser"
+    [showDialog]="displayTherapistUserEditorDialog"
+    (onClose)="hideTherapistUserEditorDialog()">
+</dex-therapist-user-editor-dialog>

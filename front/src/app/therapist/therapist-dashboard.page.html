@@ -1,0 +1,124 @@
+<!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+
+<!--<div class="ui-g">-->
+
+    <!--<div class="ui-g-12" align="center">-->
+        <!--<p-card>-->
+            <!--<h1 class="centerText">{{title1}}</h1>-->
+        <!--</p-card>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!--<div class="ui-g-12">-->
+    <!--<p-card>-->
+        <!--<h1 class="centerText">Patient</h1>-->
+
+        <!--<p-table #dt-->
+                 <!--[columns]="cols"-->
+                 <!--[value]="(consultationResult$ | async).data"-->
+                 <!--[selectionMode]="'single'"-->
+                 <!--[lazy]="true"-->
+                 <!--[rows]="10"-->
+                 <!--[paginator]="false"-->
+                 <!--[totalRecords]="(consultationResult$ | async).totalSize">-->
+            <!--<ng-template pTemplate="header" let-columns>-->
+                <!--<tr>-->
+                    <!--<th style="width: 10%">No.</th>-->
+                    <!--<th style="width: 10%">Child Name</th>-->
+                <!--</tr>-->
+            <!--</ng-template>-->
+            <!--<ng-template let-i="rowIndex" pTemplate="body" let-rowData>-->
+                <!--<tr [pSelectableRow]="rowData">-->
+
+                    <!--<td align="center">-->
+                        <!--{{i + 1}}-->
+                    <!--</td>-->
+                    <!--<td align="center" (click)="childProfile(rowData)">-->
+                        <!--{{rowData?.child?.name}}-->
+                    <!--</td>-->
+
+                <!--</tr>-->
+            <!--</ng-template>-->
+        <!--</p-table>-->
+    <!--</p-card>-->
+<!--</div>-->
+
+
+<div class="ui-g">
+    <div class="ui-g-12">
+        <div class="ui-g-12 ui-md-12 ui-lg-8">
+            <div class="ui-g-12 ui-md-12" style="padding: 0px">
+                <div class="ui-g-12" align="left">
+                    <h2><i class="fa fa-child"
+                           aria-hidden="true"
+                           style="padding-right: 10px;">
+                    </i>My Patient</h2>
+                </div>
+
+                <div class="ui-g-12 custom-container">
+                    <div *ngIf="(consultationResult$ | async)?.data != null; then thenBlock else elseBlock"></div>
+                    <ng-template #thenBlock>
+                        <div *ngFor="let consultation of (consultationResult$| async)?.data" class="ui-g-12 ui-md-6 ui-lg-3 moving">
+                            <div class="ui-g-12 card card-w-title flip-card-inner"
+                                 align="center"
+                                 style="margin-bottom: 0px; height: 18em;">
+                                <div class="flip-card-front">
+                                    <div class="ui-fluid">
+                                        <img style="width: 50%; height: auto; margin: 20px 0px 20px 0px;"
+                                             *ngIf="consultation.child.gender == 'MALE'"
+                                             src="assets/layout/images/boy.png">
+                                        <img style="width: 50%; height: auto; margin: 20px 0px 20px 0px;"
+                                             *ngIf="consultation.child.gender == 'FEMALE'"
+                                             src="assets/layout/images/girl.png">
+                                    </div>
+                                    <div class="ui-fluid">
+                                        <h2>{{consultation.child.name}}</h2>
+                                    </div>
+                                </div>
+                                <div class="ui-g-12 flip-card-back">
+                                    <div class="ui-g-12" align="center">
+                                        <p-button
+                                            style="position: center"
+                                            label="Profile"
+                                            icon="fa fa-user"
+                                            title="View profile"
+                                            (click)=childProfile(consultation)
+                                            type="button">
+                                        </p-button>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template #elseBlock>
+                        <div class="ui-g-12" align="center" style="color: #ffffff; padding: 30px;">
+                            You have no patient.
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+        <div class="ui-g-12 ui-md-12 ui-lg-4">
+            <div class="ui-g-12" align="left">
+                <h2><i class="fa fa-book" aria-hidden="true" style="padding-right: 10px;"></i>Evaluation Log</h2>
+            </div>
+            <div class="ui-g-12 card card-w-title"
+                 style="padding: 10px; box-shadow: inset 0 0 10px rgba(0,0,0,0.5); background: #6A4AA5">
+                <p-scrollPanel [style]="{width: '100%', height: '280px'}">
+
+                <div *ngFor="let evaluationLog of (evaluationLog$ | async)?.data; let i = index;" class="ui-g-12 dissolve">
+                    <div class="ui-g-2" style="color: #ffffff;">
+                        {{i + 1}}
+                    </div>
+                    <div class="ui-g-10" style="color: #ffffff;">
+                        {{evaluationLog.evaluation.modifiedDate | date :'medium'}}. {{evaluationLog.child.name}} completed
+                        Evaluation Schema {{evaluationLog.evaluation.schema.ordinal}}.
+                    </div>
+                </div>
+                </p-scrollPanel>
+            </div>
+        </div>
+    </div>
+</div>

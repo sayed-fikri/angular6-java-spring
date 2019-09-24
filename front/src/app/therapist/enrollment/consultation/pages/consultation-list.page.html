@@ -1,0 +1,45 @@
+<div class="ui-g ">
+
+    <div class="ui-g-12" align="center">
+        <br>
+        <span class="colorbox-name"
+              style="font-size: 2.5em;font-family: 'Ubuntu', sans-serif">{{title}}</span>
+        <br>
+        <br>
+    </div>
+
+    <div class="ui-g-12 custom-container">
+    <div *ngFor="let consultation of (consultationResult$|async).data" class="ui-g-12 ui-md-6 ui-lg-3 moving">
+        <div class="ui-g-12 card card-w-title" align="center">
+            <div class="ui-g-12">
+                <!--<img src="Card" src="assets/layout/images/boy.png">-->
+                <img style="width: 72%; height: auto; margin: 20px 0px 20px 0px;"
+                     *ngIf="consultation.child.gender == 'MALE'"
+                     src="assets/layout/images/boy.png">
+                <img style="width: 72%; height: auto; margin: 20px 0px 20px 0px;"
+                     *ngIf="consultation.child.gender == 'FEMALE'"
+                     src="assets/layout/images/girl.png">
+            </div>
+            <div>
+                <h1>{{consultation.child.name}}</h1>
+            </div>
+            <p-footer>
+                <div class="ui-g-12">
+                    <div class="ui-g-12" align="center">
+                        <p-button
+                            style="position: center"
+                            label="Profile"
+                            icon="fa fa-user"
+                            title="View profile"
+                            (click)="childProfile(consultation)"
+                            type="button">
+                        </p-button>
+                    </div>
+
+                </div>
+            </p-footer>
+        </div>
+    </div>
+    </div>
+
+</div>

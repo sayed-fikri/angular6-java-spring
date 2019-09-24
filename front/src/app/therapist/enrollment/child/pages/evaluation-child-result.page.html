@@ -1,0 +1,68 @@
+
+<div class="ui-g ui-fluid">
+
+    <div class="card">
+
+        <div class="ui-g-12 ui-md-12" align="center">
+            <h1>Evaluation Result</h1>
+            <h2>Set :{{(evaluation$ | async)?.schema?.description}} </h2>
+
+            <!--<div class="ui-toolbar-group-right">-->
+
+
+            <div class="ui-toolbar-group-right">
+                <button pButton
+                        type="button"
+                        [label]="'Profile'"
+                        title="Redirect to child profile page"
+                        (click)="redirectProfile()">
+                </button>
+            </div>
+
+        </div>
+
+        <div class="ui-g-12">
+            <div class="ui-g-6 card colorbox colorbox-1">
+                <div class="ui-g-3"><i class="material-icons"></i></div>
+                <div class="ui-g-12">
+                    <span class="colorbox-name" style="font-size: 2em">Section Score</span>
+
+                    <div class="ui-g"
+                         *ngFor="let sectionResponse of (evaluation$| async)?.sectionResponses;">
+                        <div
+                            class="ui-g-8 ui-sm-8">{{sectionResponse.evaluationSection?.description}} </div>
+                        <div class="ui-g-4 ui-sm-4"><b> {{sectionResponse.sectionScore}}/{{sectionResponse.fullScore}}</b></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui-g-6 card colorbox colorbox-1">
+                <div class="ui-g-3"><i class="material-icons"></i></div>
+                <div class="ui-g-12">
+                    <span class="colorbox-name" style="font-size: 2em">Total Score</span>
+                </div>
+                <div class="ui-g-12">
+                    <span class="colorbox-count"
+                          style="font-size: 4.25em; font-weight: 600">{{(evaluation$ |async)?.totalScore}}/{{(evaluation$ |async)?.schema?.fullScore}}</span>
+                </div>
+                <div class="ui-g-12">
+                    <span class="colorbox-name" style="font-size: 1.5em">Child Status</span>
+                </div>
+                <div class="ui-g-12">
+                    <span>{{(evaluation$ |async)?.evaluationStatus?.status}}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui-g-12">
+            <div class="ui-g-12 card">
+                <div class="ui-g-12">
+                    <!--<p-chart #chart type="radar" [data]="data" data [options]="options"></p-chart>-->
+                    <p-chart type="line" [data]="dataLine" data [options]="optionsLine"></p-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

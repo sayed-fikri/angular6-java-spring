@@ -1,0 +1,50 @@
+<div class="ui-g ">
+
+    <div class="ui-g-12">
+        <div class="card" style="border: black" align="center">
+            <p-panel header="Children">
+                    <p-table #dt
+                             [columns]="cols"
+                             [value]="comments$ | async"
+                             [selectionMode]="'single'"
+                             [lazy]="true"
+                             [rows]="10"
+                             [paginator]="true"
+                             [responsive]="true"
+                             autoLayout="true"
+                             (onLazyLoad)="loadData($event)"
+                             [totalRecords]="(commentResult$ | async)?.totalSize">
+
+                        <ng-template pTemplate="header" let-columns>
+                            <tr>
+                                <th style="width: 10%">No.</th>
+                                <th style="width: 10%">TimeStamp</th>
+                                <th style="width: 40%">Comment</th>
+                            </tr>
+                        </ng-template>
+
+                        <ng-template let-i="rowIndex" pTemplate="body" let-rowData>
+                            <tr [pSelectableRow]="rowData">
+                                <td align="center">
+                                    {{i + 1}}
+                                </td>
+                                <td>
+                                    {{rowData?.createdDate}}
+                                </td>
+                                <td>
+                                    {{rowData?.comment}}
+                                </td>
+                            </tr>
+                        </ng-template>
+                        <ng-template let-columns pTemplate="emptymessage">
+                            <tr>
+                                <td [attr.colspan]="3" align="center">
+                                    Fail to retrieve data. Comment is empty.
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+            </p-panel>
+        </div>
+    </div>
+</div>

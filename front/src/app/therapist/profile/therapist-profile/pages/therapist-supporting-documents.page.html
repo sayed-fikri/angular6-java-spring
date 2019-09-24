@@ -1,0 +1,93 @@
+<!--{{therapist$|async|json}}-->
+
+<div class="ui-g-12">
+    <div class="ui-g-12">
+        <form>
+            <div [formGroup]="therapistForm"
+                 class="ui-g-12 ui-md-12 ui-lg-10 centerized">
+                <div align="center">
+                    <h2 style="margin-bottom: 30px"><i aria-hidden="true"
+                                                       class="fa fa-user"
+                                                       style="padding-right: 20px;">
+                    </i>PERSONAL INFO</h2>
+                </div>
+                <div class="ui-g-12 ui-md-12 ui-lg-10 centerized"
+                     style="border-top: 1px solid;
+                            border-top-color: rgba(0,0,0,0.25);
+                            padding-top: 30px">
+                    <div class="form-group ui-g-12 ui-md-12 ui-lg-6">
+                        <label for="name">Name :</label>
+                        <input class="form-control"
+                               formControlName="name"
+                               id="name" readonly
+                               type="name">
+                    </div>
+
+                    <div class="ui-g-12">
+                        <h2>Upload Required Documents</h2>
+                        <p-growl [value]="msgs"></p-growl>
+                        <p-fileUpload #fileUpload (onUpload)="onSuccessUpload()"
+                                      (uploadHandler)="onUpload($event)"
+                                      [customUpload]="true"
+                                      [multiple]="false"
+                                      maxFileSize="5000000"
+                                      name="files">
+                        </p-fileUpload>
+                    </div>
+                    <div class="ui-g-12">
+                        <h2>Documents List</h2>
+                        <p-table #dt
+                                 [columns]="cols"
+                                 [selectionMode]="'single'"
+                                 [value]="supportingDocuments$ | async">
+                            <ng-template let-columns pTemplate="header">
+                                <tr>
+                                    <th style="width: 80%">FileName</th>
+                                    <th style="width: 20%">Action</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template let-rowData pTemplate="body">
+                                <tr [pSelectableRow]="rowData">
+                                    <td>
+                                        {{rowData?.fileName}}
+                                    </td>
+                                    <td align="center">
+                                        <div class="ui-button-toolbar-mr">
+                                            <button
+                                                (click)="doViewAttachment(rowData)"
+                                                class="ui-button-success"
+                                                icon="fa fa-external-link"
+                                                pButton
+                                                pTooltip="View"
+                                                type="button">
+                                            </button>
+                                            <button
+                                                (click)="doDeleteAttachment(rowData)"
+                                                class="ui-button-danger"
+                                                icon="fa fa-trash"
+                                                pButton
+                                                pTooltip="Remove"
+                                                type="button">
+                                            </button>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<dex-attachment-viewer-dialog
+    (onClose)="hideAttachmentDialog()"
+    [attachments]="selectedSupportingDocuments"
+    [showDialog]="showAttachmentDialog">
+
+</dex-attachment-viewer-dialog>

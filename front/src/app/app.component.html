@@ -1,0 +1,43 @@
+<!--{{$course | async | json}}-->
+
+<h3 class="first">Course List</h3>
+
+<div style="text-align:center; margin-left: auto; margin-right: auto">
+  <div style="text-align:center;" class="ui-inputgroup" >
+    <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+    <input type="text" pInputText placeholder="Course  Name" >
+
+    <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+    <input type="text" pInputText placeholder="Course Code">
+
+    <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+    <input type="text" pInputText placeholder="Course Type">
+
+    <button pButton type="button"  (click)="registerNewCourse()" label="Register Course" ></button>
+  </div>
+  </div>
+
+<br>
+<br>
+
+
+<div>
+<p-table [value]="$courses |async">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>ID</th>
+      <th>Course Code</th>
+      <th>Course Name</th>
+      <th>Course Type</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-course>
+    <tr>
+      <td>{{course.courseId}}</td>
+      <td>{{course.courseCode}}</td>
+      <td>{{course.courseName}}</td>
+      <td>{{course.courseType}}</td>
+    </tr>
+  </ng-template>
+</p-table>
+</div>
